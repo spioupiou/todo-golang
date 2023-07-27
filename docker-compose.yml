@@ -1,21 +1,18 @@
-version: '3.8'
+version: '3'
 services:
-  golang-todo-db:
-    container_name: goland-todo-db
+  go:
+    build:
+      context: .
+      dockerfile: DockerFile
+    command: /bin/sh -c "go run main.go"
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+  db:
     image: mysql:5.7
     platform: linux/x86_64
     environment:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     ports:
       - 3306:3306
-  golang-todo-backend:
-    container_name: golang-todo-backend
-    build:
-      context: ./golang
-      dockerfile: Dockerfile
-    depends_on:
-      - golang-todo-db
-    environment:
-      - ./mysql/.env
-    ports:
-      - 8080:8080
