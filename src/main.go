@@ -10,5 +10,5 @@ func main() {
 	router := gin.Default()
 	router.GET("/todos", Model.GetTodos)
 
-	router.Run("localhost:8080")
+	router.Run("0.0.0.0:80")
 }
